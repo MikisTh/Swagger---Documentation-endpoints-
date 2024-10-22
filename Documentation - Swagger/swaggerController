@@ -1,0 +1,27 @@
+package br.com.artigos.swagger.controller;
+
+import br.com.artigos.swagger.model.Curso;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping("/documentacao")
+public class DocumentacaoController {
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> buscarCursoPorID(@PathVariable(value = "id") Long id){
+        Curso curso = new Curso(id, "Curso de Swagger", "Documentação", 1000L);
+        return ResponseEntity.status(HttpStatus.OK).body(curso);
+    }
+
+    @PostMapping()
+    public ResponseEntity<Object> salvarCurso(@RequestBody @Valid Curso curso){
+        return ResponseEntity.status(HttpStatus.OK).body(curso);
+    }
+}
